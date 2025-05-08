@@ -1,42 +1,43 @@
 <script lang="ts">
-    import { page } from "$app/stores";
-    
-    const links = [
-      { name: "House Planner", url: "/" },
-      { name: "Construction Guide", url: "https://oldschool.runescape.wiki/w/Construction_training", external: true },
-      { name: "POH Layouts", url: "https://oldschool.runescape.wiki/w/Player-owned_house", external: true }
-    ];
-  </script>
+  import { page } from "$app/stores";
+  import { base } from "$app/paths";
   
-  <header class="osrs-header">
-    <div class="header-container">
-      <div class="logo-section">
-        <img src="/icons/ui/Construction_icon.png" alt="Construction" class="skill-icon">
-        <h1>OSRS House Planner</h1>
-      </div>
-      
-      <nav class="nav-links">
-        {#each links as link}
-          <a 
-            href={link.url} 
-            class:active={!link.external && $page.url.pathname === link.url}
-            target={link.external ? "_blank" : undefined}
-            rel={link.external ? "noopener noreferrer" : undefined}
-          >
-            <span class="nav-link-inner">{link.name}</span>
-          </a>
-        {/each}
-      </nav>
+  const links = [
+    { name: "House Planner", url: "/" },
+    { name: "Construction Guide", url: "https://oldschool.runescape.wiki/w/Construction_training", external: true },
+    { name: "POH Layouts", url: "https://oldschool.runescape.wiki/w/Player-owned_house", external: true }
+  ];
+</script>
+
+<header class="osrs-header">
+  <div class="header-container">
+    <div class="logo-section">
+      <img src="{base}/icons/ui/Construction_icon.png" alt="Construction" class="skill-icon">
+      <h1>OSRS House Planner</h1>
     </div>
-  </header>
-  
-  <style lang="scss">
-    .osrs-header {
-      background-color: #483e33;
-      background-image: url("/interface/header-bg.png");
-      background-repeat: repeat;
-      border-bottom: 2px solid #5a4a3a;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    
+    <nav class="nav-links">
+      {#each links as link}
+        <a 
+          href={link.external ? link.url : `${base}${link.url}`} 
+          class:active={!link.external && $page.url.pathname === link.url}
+          target={link.external ? "_blank" : undefined}
+          rel={link.external ? "noopener noreferrer" : undefined}
+        >
+          <span class="nav-link-inner">{link.name}</span>
+        </a>
+      {/each}
+    </nav>
+  </div>
+</header>
+
+<style lang="scss">
+  .osrs-header {
+    background-color: #483e33;
+    background-image: url("/interface/header-bg.png"); /* This will be handled by Vite/SvelteKit */
+    background-repeat: repeat;
+    border-bottom: 2px solid #5a4a3a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
       
       .header-container {
         max-width: 1200px;
